@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<flow name="flow-maniFlow" doc:id="fbb556e1-7e93-42bb-b372-874654fee8d6" >
+		<logger level="INFO" doc:name="Logger" doc:id="ecf376e9-2502-4a1b-8b69-30c07471a89f" />
+	</flow>
+	<flow name="flow-maniFlow1" doc:id="a1242428-8644-43fd-b3fc-ffe9b3062e1f" >
+		<flow-ref doc:name="Flow Reference" doc:id="afaea36a-87cb-4350-a1d1-0fcd5f3301f2" name="flow-poojaFlow"/>
+	</flow>
+</mule>

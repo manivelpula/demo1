@@ -1,0 +1,51 @@
+name: MuleSoft CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout source code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Set up Java (Mule 4 supports Java 8/11/17 depending on runtime)
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      # Build + Run MUnit tests
+      - name: Build and run MUnit tests
+        run: |
+          mvn -B clean test \
+            -Dmule.env=ci
+
+      # Package Mule application
+      - name: Package Mule application
+        run: |
+          mvn -B package -DskipTests
+
+      # Upload artifact (JAR)
+      - name: Upload Mule artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mule-application
+          path: target/*.jar
+      - name: Deploy Mule application to CloudHub 2.0 
+       # working-directory: demo   # or the folder containing your pom.xml
+        run: |
+          mvn clean deploy -Pcloudhub-2.0 -DskipExchangePreDeploy=true \
+            -DskipExchangePreDeploy=true \
+            -Danypoint.client_id=93c4740ab19346578aba3ec930bcfd08 \
+            -Danypoint.client_secret=743aa3eba1094727B31c765654752dDB \
+            -Danypoint.env=Sandbox \
+            -Danypoint.org="c39dc6dd-e124-4390-867b-7b58e9d44727"
