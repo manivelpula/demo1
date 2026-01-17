@@ -45,7 +45,7 @@ jobs:
         run: |
           mvn clean deploy -Pcloudhub-2.0  \
             -DskipExchangePreDeploy=true \
-            -Danypoint.client_id='93c4740ab19346578aba3ec930bcfd08" \
+            -Danypoint.client_id="93c4740ab19346578aba3ec930bcfd08" \
             -Danypoint.client_secret="743aa3eba1094727B31c765654752dDB" \
             -Danypoint.env=Sandbox \
             -Danypoint.org="c39dc6dd-e124-4390-867b-7b58e9d44727"
