@@ -96,39 +96,41 @@
     </build>
 
     <!-- ================= Profiles ================= -->
-    <profiles>
     <profile>
-        <id>cloudhub-2.0</id>
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.mule.tools.maven</groupId>
-                    <artifactId>mule-maven-plugin</artifactId>
-                    <version>${mule.maven.plugin.version}</version>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <deployment>
-                            <cloudHub2Deployment>
-                                <applicationName>demo1</applicationName>
-                                <runtimeVersion>4.9.12</runtimeVersion>
-                                <environment>Sandbox</environment>
-                                <businessGroup>c39dc6dd-e124-4390-867b-7b58e9d44727</businessGroup>
-                                <region>us-east-1</region>
-                                <replicas>1</replicas>
-                                <vCores>0.1</vCores>
-                                <releaseChannel>LTS</releaseChannel>
-                                <persistentQueues>false</persistentQueues>
-                                <objectStoreV2>true</objectStoreV2>
-                                <logging>
-                                    <logLevel>INFO</logLevel>
-                                </logging>
-                                 <clientId>93c4740ab19346578aba3ec930bcfd08</clientId>
-                                <clientSecret>743aa3eba1094727B31c765654752dDB</clientSecret>
-                            </cloudHub2Deployment>
-                        </deployment>
-                    </configuration>
-                </plugin>
-            </plugins>
+  <id>cloudhub-2.0</id>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.mule.tools.maven</groupId>
+        <artifactId>mule-maven-plugin</artifactId>
+        <version>${mule.maven.plugin.version}</version>
+        <extensions>true</extensions>
+        <configuration>
+          <deployment>
+            <cloudHub2Deployment>
+              <applicationName>demo1</applicationName>
+              <runtimeVersion>4.9.12</runtimeVersion>
+              <environment>Sandbox</environment>
+              <businessGroup>c39dc6dd-e124-4390-867b-7b58e9d44727</businessGroup>
+              <region>us-east-1</region>
+              <replicas>1</replicas>
+              <vCores>0.1</vCores>
+              <releaseChannel>LTS</releaseChannel>
+              <persistentQueues>false</persistentQueues>
+              <objectStoreV2>true</objectStoreV2>
+              <logging>
+                  <logLevel>INFO</logLevel>
+              </logging>
+         <clientId>93c4740ab19346578aba3ec930bcfd08</clientId>
+  <clientSecret>743aa3eba1094727B31c765654752dDB</clientSecret>
+            </cloudHub2Deployment>
+          </deployment>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</profile>
+
         </build>
     </profile>
 </profiles>
