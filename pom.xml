@@ -77,13 +77,13 @@
     </pluginRepositories>
 
     <!-- ================= Distribution Management (for Exchange) ================= -->
-    <distributionManagement>
-        <repository>
-            <id>anypoint-exchange</id>
-            <name>Anypoint Exchange</name>
-            <url>https://maven.anypoint.mulesoft.com/api/v1/maven</url>
-        </repository>
-    </distributionManagement>
+ <distributionManagement>
+    <repository>
+        <id>anypoint-exchange</id>
+        <url>https://maven.anypoint.mulesoft.com/api/v1/maven</url>
+    </repository>
+</distributionManagement>
+
 
     <!-- ================= Build Plugins ================= -->
     <build>
