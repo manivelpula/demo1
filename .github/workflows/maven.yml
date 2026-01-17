@@ -44,7 +44,6 @@ jobs:
         run: |
           mvn clean package -Pcloudhub-2.0 \
             -DmuleDeploy \
-            -Dmaven.deploy.skip=flase \
             -DskipTests \
             -Danypoint.client_id=${{ secrets.ANYPOINT_CLIENT_ID }} \
             -Danypoint.client_secret=${{ secrets.ANYPOINT_CLIENT_SECRET }} \
