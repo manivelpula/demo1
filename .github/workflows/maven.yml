@@ -60,19 +60,19 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v4
       with:
-        name: artifacts
+        name: mule-application
 
     - name: Deploy to CloudHub
       env:
         ANYPOINT_USERNAME: ${{ secrets.ANYPOINT_USERNAME }}
         ANYPOINT_PASSWORD: ${{ secrets.ANYPOINT_PASSWORD }}
       run: |
-        artifactName=$(ls *.jar | head -1)
+        artifactName=mule-application.jar
         mvn mule:deploy \
         -DmuleDeploy \
         -Dartifact=$artifactName \
-        -Dusername="$ANYPOINT_USERNAME" \
-        -Dpassword="$ANYPOINT_PASSWORD" \
+        -Dusername="mani_jab26" \
+        -Dpassword="Mani@123456" \
         -Denvironment="Sandbox" \
         -Dregion="us-east-1" \
         -Dworkers="1" \
