@@ -40,10 +40,11 @@ jobs:
         with:
           name: mule-application
           path: target/*.jar
-      - name: Deploy Mule application to CloudHub 2.0 
-       # working-directory: demo   # or the folder containing your pom.xml
+      - name: Deploy Mule application to CloudHub 2.0
         run: |
-          mvn clean deploy -Pcloudhub-2.0  \
+          mvn clean package -Pcloudhub-2.0 \
+            -Dmaven.deploy.skip=true \
+            -DskipTests \
             -Danypoint.client_id=93c4740ab19346578aba3ec930bcfd08 \
             -Danypoint.client_secret=743aa3eba1094727B31c765654752dDB \
             -Danypoint.env=Sandbox \
