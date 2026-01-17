@@ -62,19 +62,10 @@ jobs:
       with:
         name: mule-application
 
-    - name: Deploy to CloudHub
+    - name: Deploy Mule application to CloudHub 2.0
       env:
-        ANYPOINT_USERNAME: ${{ secrets.ANYPOINT_USERNAME }}
-        ANYPOINT_PASSWORD: ${{ secrets.ANYPOINT_PASSWORD }}
+        ANYPOINT_CLIENT_ID: ${{ secrets.ANYPOINT_CLIENT_ID }}
+        ANYPOINT_CLIENT_SECRET: ${{ secrets.ANYPOINT_CLIENT_SECRET }}
       run: |
-        artifactName=mule-application.jar
-        mvn mule:deploy \
-        -DmuleDeploy \
-        -Dartifact=$artifactName \
-        -Dusername="mani_jab26" \
-        -Dpassword="Mani@123456" \
-        -Denvironment="Sandbox" \
-        -Dregion="us-east-1" \
-        -Dworkers="1" \
-        -DworkerType="MICRO" \
-        -DapplicationName="demo1"
+        mvn clean package -Pcloudhub-2.0 -DmuleDeploy -DskipTests
+
