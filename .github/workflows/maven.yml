@@ -1,4 +1,4 @@
-name: Mule CICD Mule Maven Plugin
+name: MuleSoft CI
 
 on:
   push:
@@ -9,38 +9,46 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # Checkout source code
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
+      # Set up Java (Mule 4 supports Java 8/11/17 depending on runtime)
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
 
-    - name: Set up JDK 8
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'zulu'
-        java-version: '8'
+      # Build + Run MUnit tests
+      - name: Build and run MUnit tests
+        run: |
+          mvn -B clean test \
+            -Dmule.env=ci
 
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      # Package Mule application
+      - name: Package Mule application
+        run: |
+          mvn -B package -DskipTests
 
-    - name: Stamp artifact with commit hash
-      run: |
-        artifactName=$(ls target/*.jar | head -1)
-        commitHash=$(git rev-parse --short HEAD)
-        mv $artifactName target/cicd-demo-$commitHash.jar
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: artifacts
-        path: target/*.jar
+      # Upload artifact (JAR)
+      - name: Upload Mule artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mule-application
+          path: target/*.jar
+      - name: Deploy Mule application to CloudHub 2.0
+        run: |
+          mvn clean package -Pcloudhub-2.0 \
+            -DmuleDeploy \
+            -DskipTests \
+            -Danypoint.client_id=${{ secrets.ANYPOINT_CLIENT_ID }} \
+            -Danypoint.client_secret=${{ secrets.ANYPOINT_CLIENT_SECRET }} \
+            -Danypoint.env=Sandbox \
+            -Danypoint.org=c39dc6dd-e124-4390-867b-7b58e9d44727
 
   deploy:
     runs-on: ubuntu-latest
